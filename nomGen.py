@@ -3,7 +3,7 @@ from optparse import OptionParser
 from random import randint
 #pour avoir des options en ligne de commandes on utilise optparse.
 parser = OptionParser()
-parser.add_option("-n", type="int", dest="num", help="-n suivi d'un nombre de nom qu'on veut" )# on ajoute notre option, soit -n suivi d'un nombre pour modifier le nombre de sortie. par default il y a un seul nom.
+parser.add_option("-n", type="int", dest="num", help="NUM est egal au nombres de nom qu'on veut generer." )# on ajoute notre option, soit -n suivi d'un nombre pour modifier le nombre de sortie. par default il y a un seul nom.
 (options, args) = parser.parse_args()
 
 class prenomNom:
