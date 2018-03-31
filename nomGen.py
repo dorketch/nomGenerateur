@@ -3,7 +3,9 @@ from optparse import OptionParser
 from random import randint
 #pour avoir des options en ligne de commandes on utilise optparse.
 parser = OptionParser()
-parser.add_option("-n", type="int", dest="num", help="NUM est egal au nombres de nom qu'on veut generer." )# on ajoute notre option, soit -n suivi d'un nombre pour modifier le nombre de sortie. par default il y a un seul nom.
+parser.add_option("-n","--nombre", type="int", dest="num", help="NUM est egal au nombres de nom qu'on veut generer." )# on ajoute notre option, soit -n suivi d'un nombre pour modifier le nombre de sortie. par default il y a un seul nom.
+parser.add_option("-d", "--nodblnames", action="store_false", dest="dblname", help="BOOL si on ne veut pas de noms de famille compose on ajoute l'option -d")
+                  
 (options, args) = parser.parse_args()
 
 class prenomNom:
@@ -53,13 +55,19 @@ def shownom():
         a.prenom = str(a.genPrenom())
         result = a.prenom + " " + a.nom
     else:
-        a = prenomNom()
-        b = prenomNom()
-        a.prenom = str(a.genPrenom())
-        a.nom = str(a.genNom())
-        b.nom = str(b.genNom())
-        result = a.prenom + " " + a.nom + " " + b.nom
-        
+        if options.dblname==0:
+            a = prenomNom()
+            a.nom = str(a.genNom())
+            a.prenom = str(a.genPrenom())
+            result = a.prenom + " " + a.nom
+        else:
+            a = prenomNom()
+            b = prenomNom()
+            a.prenom = str(a.genPrenom())
+            a.nom = str(a.genNom())
+            b.nom = str(b.genNom())
+            result = a.prenom + " " + a.nom + " " + b.nom
+
     return result
 
 
