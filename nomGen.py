@@ -1,22 +1,10 @@
 #!/usr/bin/env python2
 from optparse import OptionParser
 from random import randint
+#pour avoir des options en ligne de commandes on utilise optparse.
 parser = OptionParser()
-parser.add_option("-n", type="int", dest="num", help="-n NB un nombre de nom qu'on veut" )
+parser.add_option("-n", type="int", dest="num", help="-n suivi d'un nombre de nom qu'on veut" )# on ajoute notre option, soit -n suivi d'un nombre pour modifier le nombre de sortie. par default il y a un seul nom.
 (options, args) = parser.parse_args()
-
-# import re
-
-# with open('dictionnaire/nomFamille.txt') as fichier:
-#     lignes = fichier.readlines()
-#     lignes = [line.rstrip('\n') for line in open('dictionnaire/nomFamille.txt')]
-#     plafond = len(lignes)
-#     plancher = int(plafond) - int(plafond)
-#     plafond = plafond - 1
-#     hazard = randint(plancher,plafond)
-#     sortie = lignes[hazard]
-# print(sortie)
-
 
 class prenomNom:
 
