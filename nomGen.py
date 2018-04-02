@@ -1,6 +1,7 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 from optparse import OptionParser
 from random import randint
+
 #pour avoir des options en ligne de commandes on utilise optparse.
 parser = OptionParser()
 parser.add_option("-n","--nombre", type="int", dest="num", help="NUM est egal au nombres de nom qu'on veut generer." )# on ajoute notre option, soit -n suivi d'un nombre pour modifier le nombre de sortie. par default il y a un seul nom.
@@ -45,6 +46,7 @@ class prenomNom:
             sortie = lignes[hazard]
         self.nom = sortie
         return self.nom
+        
 
 def shownom():
     """ des fois il y a deux noms de familles, alors on fait pile ou face  et ensuite on genere 1 ou 2 nom + resultat selon les besoins"""
@@ -78,7 +80,4 @@ if options.num:
         print(str(a))
         count = count + 1    
     exit(0)
-
-a = shownom()
-print(str(a))
 
