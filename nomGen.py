@@ -8,15 +8,26 @@ parser.add_option("-n","--nombre", type="int", dest="num", help="NUM est egal au
 parser.add_option("-d", "--nodblnames", action="store_false", dest="dblname", help="BOOL si on ne veut pas de noms de famille compose on ajoute l'option -d")
                   
 (options, args) = parser.parse_args()
+dblnamevar = options.dblname 
 
 class prenomNom:
 
     def __init__(self):
-        """ on a un nom et un prenom. voila """
-        self.nom = "nom"
-        self.prenom = "prenom"
-        
-        
+        """ Assigne un prenom, un nom et un deuxieme nom. On tire a pile ou face et on decide celui quon montre"""
+        self.nom = self.genNom()
+        self.dblnom = self.genDblNom()
+        self.prenom = self.genPrenom()
+        self.dbl = self.prenom + " " + self.nom + " " + self.dblnom
+        self.single = self.prenom + " " + self.nom
+        hazard = randint(0,1)
+        if hazard == 1:
+            self.result = self.single
+        else:
+            if dblnamevar==0:
+                self.result = self.single
+            else:
+                self.result = self.dbl
+
     def genPrenom(self):
         """ Cette fonction genere des prenoms en allant chercher une ligne au hazard dans le fichier dictionnaire """
         with open('dictionnaires/prenom.txt') as fichier: #on ouvre le fichier
@@ -46,38 +57,31 @@ class prenomNom:
             sortie = lignes[hazard]
         self.nom = sortie
         return self.nom
+    def genDblNom(self):
+        """ Cette fonction genere des nom de famille en allant chercher une ligne au hazard dans le fichier dictionnaire """
+        with open('dictionnaires/nomFamille.txt') as fichier:
+            lignes = fichier.readlines()
+            lignes = [line.rstrip('\n') for line in open('dictionnaires/nomFamille.txt')]
+            # determiner le plafond et le plancher pour la selection
+            # au hazard
+            plafond = len(lignes) #nombre de lignes total du fichier
+            plancher = int(plafond) - int(plafond) #le plancher c'est 0
+            plafond = plafond - 1 #l'index commence a 0 alors max - 1
+            hazard = randint(plancher,plafond)
+            sortie = lignes[hazard]
+        self.dblnom = sortie
+        return self.dblnom
         
-
-def shownom():
-    """ des fois il y a deux noms de familles, alors on fait pile ou face  et ensuite on genere 1 ou 2 nom + resultat selon les besoins"""
-    hazard = randint(0,1)
-    if hazard == 1:
-        a = prenomNom()
-        a.nom = str(a.genNom())
-        a.prenom = str(a.genPrenom())
-        result = a.prenom + " " + a.nom
-    else:
-        if options.dblname==0:
-            a = prenomNom()
-            a.nom = str(a.genNom())
-            a.prenom = str(a.genPrenom())
-            result = a.prenom + " " + a.nom
-        else:
-            a = prenomNom()
-            b = prenomNom()
-            a.prenom = str(a.genPrenom())
-            a.nom = str(a.genNom())
-            b.nom = str(b.genNom())
-            result = a.prenom + " " + a.nom + " " + b.nom
-
-    return result
-
-
 if options.num:
     count = 0
     while (count < options.num):
-        a = shownom()
-        print(str(a))
+        leNom = prenomNom()
+        print(str(leNom.result))
         count = count + 1    
     exit(0)
+
+
+leNom = prenomNom()
+print(str(leNom.result))
+
 
